@@ -1,0 +1,31 @@
+[
+  {
+    "request": {
+      "body": "{\"app_name\":\"test-app-12345\",\"org_slug\":\"personal\"}",
+      "headers": {
+        "accept": "application/json",
+        "user-agent": "req_fly/0.1.0 (+Req)",
+        "content-type": "application/json"
+      },
+      "method": "post",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.machines.dev/v1/apps"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"id\":\"01HQXXX3333333333333333333\",\"name\":\"test-app-12345\",\"status\":\"pending\",\"deployed\":false,\"hostname\":\"test-app-12345.fly.dev\",\"appUrl\":\"https://test-app-12345.fly.dev\",\"organization\":{\"id\":\"personal\",\"slug\":\"personal\",\"name\":\"Personal\"},\"createdAt\":\"2025-10-04T12:05:00Z\",\"updatedAt\":\"2025-10-04T12:05:00Z\"}",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "fly-request-id": "01HQXXX-LDN-EEEEFFFFGGGGHHHH",
+        "via": "1.1 fly.io",
+        "date": "Sat, 04 Oct 2025 12:05:00 GMT",
+        "server": "Fly/Edge",
+        "location": "/v1/apps/test-app-12345",
+        "content-length": "324"
+      },
+      "status_code": 201,
+      "type": "ok"
+    }
+  }
+]

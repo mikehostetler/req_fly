@@ -1,0 +1,728 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Fly Machines API",
+    "version": "1.0",
+    "description": "Fly.io Machines API for managing applications, machines, volumes, and secrets",
+    "contact": {
+      "name": "Fly.io",
+      "url": "https://fly.io"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.machines.dev/v1",
+      "description": "Fly.io Machines API"
+    }
+  ],
+  "paths": {
+    "/apps": {
+      "get": {
+        "summary": "List all apps",
+        "operationId": "listApps",
+        "tags": ["Apps"],
+        "responses": {
+          "200": {
+            "description": "List of apps",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "apps": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/App"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new app",
+        "operationId": "createApp",
+        "tags": ["Apps"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAppRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "App created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/App"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{app_name}": {
+      "parameters": [
+        {
+          "name": "app_name",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get app details",
+        "operationId": "getApp",
+        "tags": ["Apps"],
+        "responses": {
+          "200": {
+            "description": "App details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/App"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an app",
+        "operationId": "deleteApp",
+        "tags": ["Apps"],
+        "responses": {
+          "204": {
+            "description": "App deleted"
+          }
+        }
+      }
+    },
+    "/apps/{app_name}/machines": {
+      "parameters": [
+        {
+          "name": "app_name",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "List machines for an app",
+        "operationId": "listMachines",
+        "tags": ["Machines"],
+        "responses": {
+          "200": {
+            "description": "List of machines",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Machine"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new machine",
+        "operationId": "createMachine",
+        "tags": ["Machines"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMachineRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Machine created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Machine"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{app_name}/machines/{machine_id}": {
+      "parameters": [
+        {
+          "name": "app_name",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "machine_id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get machine details",
+        "operationId": "getMachine",
+        "tags": ["Machines"],
+        "responses": {
+          "200": {
+            "description": "Machine details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Machine"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a machine",
+        "operationId": "deleteMachine",
+        "tags": ["Machines"],
+        "responses": {
+          "204": {
+            "description": "Machine deleted"
+          }
+        }
+      }
+    },
+    "/apps/{app_name}/machines/{machine_id}/start": {
+      "parameters": [
+        {
+          "name": "app_name",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "machine_id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "post": {
+        "summary": "Start a machine",
+        "operationId": "startMachine",
+        "tags": ["Machines"],
+        "responses": {
+          "200": {
+            "description": "Machine started",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{app_name}/machines/{machine_id}/stop": {
+      "parameters": [
+        {
+          "name": "app_name",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "machine_id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "post": {
+        "summary": "Stop a machine",
+        "operationId": "stopMachine",
+        "tags": ["Machines"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StopMachineRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Machine stopped",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{app_name}/machines/{machine_id}/wait": {
+      "parameters": [
+        {
+          "name": "app_name",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "machine_id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Wait for machine state",
+        "operationId": "waitForMachine",
+        "tags": ["Machines"],
+        "parameters": [
+          {
+            "name": "state",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": ["started", "stopped", "destroyed"]
+            }
+          },
+          {
+            "name": "timeout",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Machine state reached",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{app_name}/secrets": {
+      "parameters": [
+        {
+          "name": "app_name",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "List secrets for an app",
+        "operationId": "listSecrets",
+        "tags": ["Secrets"],
+        "responses": {
+          "200": {
+            "description": "List of secrets",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Secret"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create or update secrets",
+        "operationId": "setSecrets",
+        "tags": ["Secrets"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetSecretsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Secrets updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Release"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{app_name}/volumes": {
+      "parameters": [
+        {
+          "name": "app_name",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "List volumes for an app",
+        "operationId": "listVolumes",
+        "tags": ["Volumes"],
+        "responses": {
+          "200": {
+            "description": "List of volumes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Volume"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new volume",
+        "operationId": "createVolume",
+        "tags": ["Volumes"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVolumeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Volume created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Volume"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/apps/{app_name}/volumes/{volume_id}": {
+      "parameters": [
+        {
+          "name": "app_name",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "volume_id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Get volume details",
+        "operationId": "getVolume",
+        "tags": ["Volumes"],
+        "responses": {
+          "200": {
+            "description": "Volume details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Volume"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a volume",
+        "operationId": "deleteVolume",
+        "tags": ["Volumes"],
+        "responses": {
+          "204": {
+            "description": "Volume deleted"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "App": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "organization": {
+            "type": "object",
+            "properties": {
+              "slug": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "CreateAppRequest": {
+        "type": "object",
+        "required": ["app_name"],
+        "properties": {
+          "app_name": {
+            "type": "string"
+          },
+          "org_slug": {
+            "type": "string"
+          }
+        }
+      },
+      "Machine": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "image_ref": {
+            "type": "object",
+            "properties": {
+              "registry": {
+                "type": "string"
+              },
+              "repository": {
+                "type": "string"
+              },
+              "tag": {
+                "type": "string"
+              },
+              "digest": {
+                "type": "string"
+              }
+            }
+          },
+          "config": {
+            "type": "object"
+          }
+        }
+      },
+      "CreateMachineRequest": {
+        "type": "object",
+        "required": ["config"],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "config": {
+            "type": "object",
+            "properties": {
+              "image": {
+                "type": "string"
+              },
+              "env": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "services": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "StopMachineRequest": {
+        "type": "object",
+        "properties": {
+          "signal": {
+            "type": "string"
+          },
+          "timeout": {
+            "type": "integer"
+          }
+        }
+      },
+      "Secret": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "digest": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "SetSecretsRequest": {
+        "type": "object",
+        "required": ["secrets"],
+        "properties": {
+          "secrets": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "Release": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer"
+          }
+        }
+      },
+      "Volume": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "size_gb": {
+            "type": "integer"
+          },
+          "region": {
+            "type": "string"
+          },
+          "encrypted": {
+            "type": "boolean"
+          },
+          "attached_machine_id": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CreateVolumeRequest": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "size_gb": {
+            "type": "integer"
+          },
+          "encrypted": {
+            "type": "boolean"
+          },
+          "require_unique_zone": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "accept": "application/json",
+        "user-agent": "req_fly/0.1.0 (+Req)"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.machines.dev/v1/apps"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"total_apps\":2,\"apps\":[{\"id\":\"01HQXXX1111111111111111111\",\"name\":\"my-app-production\",\"status\":\"running\",\"deployed\":true,\"hostname\":\"my-app-production.fly.dev\",\"appUrl\":\"https://my-app-production.fly.dev\",\"organization\":{\"id\":\"personal\",\"slug\":\"personal\",\"name\":\"Personal\"},\"createdAt\":\"2024-01-15T10:30:00Z\",\"updatedAt\":\"2024-10-01T14:22:00Z\"},{\"id\":\"01HQXXX2222222222222222222\",\"name\":\"my-app-staging\",\"status\":\"suspended\",\"deployed\":true,\"hostname\":\"my-app-staging.fly.dev\",\"appUrl\":\"https://my-app-staging.fly.dev\",\"organization\":{\"id\":\"personal\",\"slug\":\"personal\",\"name\":\"Personal\"},\"createdAt\":\"2024-02-20T08:15:00Z\",\"updatedAt\":\"2024-09-15T11:00:00Z\"}]}",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "fly-request-id": "01HQXXX-LDN-AAAABBBBCCCCDDDD",
+        "via": "1.1 fly.io",
+        "date": "Sat, 04 Oct 2025 12:00:00 GMT",
+        "server": "Fly/Edge",
+        "content-length": "628"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
