@@ -66,7 +66,8 @@ defmodule ReqFly.AppsTest do
         json_response(conn, 500, Jason.encode!(error))
       end)
 
-      assert {:error, %ReqFly.Error{status: 500, reason: "Server error"}} = ReqFly.Apps.list(req_no_retry)
+      assert {:error, %ReqFly.Error{status: 500, reason: "Server error"}} =
+               ReqFly.Apps.list(req_no_retry)
     end
   end
 
