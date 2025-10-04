@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 env:
   MIX_ENV: test
@@ -17,16 +17,16 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - elixir: '1.14'
-            otp: '25'
-          - elixir: '1.15'
-            otp: '26'
-          - elixir: '1.16'
-            otp: '26'
-          - elixir: '1.17'
-            otp: '27'
-          - elixir: '1.18'
-            otp: '27'
+          - elixir: "1.14"
+            otp: "25"
+          - elixir: "1.15"
+            otp: "26"
+          - elixir: "1.16"
+            otp: "26"
+          - elixir: "1.17"
+            otp: "27"
+          - elixir: "1.18"
+            otp: "27"
 
     steps:
       - name: Checkout code
@@ -78,8 +78,8 @@ jobs:
       - name: Set up Elixir
         uses: erlef/setup-beam@v1
         with:
-          elixir-version: '1.18'
-          otp-version: '27'
+          elixir-version: "1.18"
+          otp-version: "27"
 
       - name: Restore dependencies cache
         uses: actions/cache@v4
@@ -108,39 +108,3 @@ jobs:
 
       - name: Run Dialyzer
         run: mix dialyzer --format github
-
-  docs:
-    name: Generate Documentation
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Elixir
-        uses: erlef/setup-beam@v1
-        with:
-          elixir-version: '1.18'
-          otp-version: '27'
-
-      - name: Restore dependencies cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            deps
-            _build
-          key: ${{ runner.os }}-mix-docs-${{ hashFiles('**/mix.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-mix-docs-
-
-      - name: Install dependencies
-        run: mix deps.get
-
-      - name: Generate documentation
-        run: mix docs
-
-      - name: Upload documentation
-        uses: actions/upload-artifact@v4
-        with:
-          name: documentation
-          path: doc/
