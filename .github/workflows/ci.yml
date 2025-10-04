@@ -59,7 +59,7 @@ jobs:
         if: matrix.elixir == '1.18' && matrix.otp == '27'
 
       - name: Run tests
-        run: mix test --cover
+        run: mix test
 
       - name: Run Credo
         run: mix credo --strict --mute-exit-status
